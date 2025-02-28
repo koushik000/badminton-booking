@@ -7,7 +7,20 @@ const SlotList = ({ date, userEmail, setBookings = () => {} }) => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Function to fetch slots
+    // Restricted time slots
+    const restrictedTimes = {
+        weekday: ["08:00 - 09:00", "13:00 - 14:00"],  // Weekdays & Saturday
+        sunday: ["13:00 - 14:00"],                    // Sunday
+    };
+
+    // Function to determine if a slot is allowed
+    const isSlotAllowed = (day, time) => {
+        if (day === 6) return time < "13:00";  // Saturday: Only before 1 PM
+        if (day === 0) return time < "10:00" || !restrictedTimes.sunday.includes(time); // Sunday: Only before 10 AM, except 1-2 PM
+        return !restrictedTimes.weekday.includes(time); // Weekdays: Exclude break times
+    };
+
+    // Fetch slots
     const fetchSlots = async () => {
         if (!date) return;
         
@@ -17,32 +30,13 @@ const SlotList = ({ date, userEmail, setBookings = () => {} }) => {
         try {
             const res = await axios.get(`http://localhost:3000/api/slots?date=${date}`);
             
-            // Process and deduplicate slots
-            const uniqueSlots = {};
-            
-            res.data.forEach(slot => {
-                const timeKey = slot.time;
-                
-                if (!uniqueSlots[timeKey]) {
-                    uniqueSlots[timeKey] = {
-                        time: timeKey,
-                        courts: [...(slot.courts || [])]
-                    };
-                } else if (slot.courts?.length) {
-                    const existingCourts = new Set(uniqueSlots[timeKey].courts);
-                    slot.courts.forEach(court => existingCourts.add(court));
-                    uniqueSlots[timeKey].courts = Array.from(existingCourts).sort((a, b) => a - b);
-                }
+            const filteredSlots = res.data.filter(slot => {
+                const [startTime] = slot.time.split(" - ");
+                const day = new Date(date).getDay(); // Get the day (0 = Sunday, 6 = Saturday)
+                return isSlotAllowed(day, startTime);
             });
-            
-            // Convert to array and sort by time
-            const processedSlots = Object.values(uniqueSlots).sort((a, b) => {
-                const timeA = new Date(`1970-01-01T${a.time.split(' - ')[0]}:00`);
-                const timeB = new Date(`1970-01-01T${b.time.split(' - ')[0]}:00`);
-                return timeA - timeB;
-            });
-            
-            setSlots(processedSlots);
+
+            setSlots(filteredSlots);
         } catch (error) {
             console.error('Error fetching slots:', error);
             setError('Failed to load available slots. Please try again later.');
@@ -51,7 +45,6 @@ const SlotList = ({ date, userEmail, setBookings = () => {} }) => {
         }
     };
 
-    // Fetch slots when date changes
     useEffect(() => {
         fetchSlots();
     }, [date]);
@@ -63,12 +56,7 @@ const SlotList = ({ date, userEmail, setBookings = () => {} }) => {
             return;
         }
 
-        const bookingDetails = {
-            date,
-            time: slotTime,
-            court,
-            studentId: userEmail,
-        };
+        const bookingDetails = { date, time: slotTime, court, studentId: userEmail };
 
         try {
             setLoading(true);
@@ -76,26 +64,19 @@ const SlotList = ({ date, userEmail, setBookings = () => {} }) => {
 
             if (res.data.success || res.status === 200) {
                 alert(res.data.message || 'Court booked successfully!');
-
-                // Ensure setBookings is called with correct type
                 setBookings(prev => (Array.isArray(prev) ? [...prev, bookingDetails] : [bookingDetails]));
 
-                // Optimistically update the UI
+                // Optimistically update UI
                 setSlots(prevSlots => prevSlots.map(slot => 
-                    slot.time === slotTime ? { 
-                        ...slot, 
-                        courts: slot.courts.filter(c => c !== court) 
-                    } : slot
+                    slot.time === slotTime ? { ...slot, courts: slot.courts.filter(c => c !== court) } : slot
                 ));
 
-                // Optional: Re-fetch to ensure consistency
-                fetchSlots();
+                fetchSlots(); // Refresh slots
             } else {
                 throw new Error(res.data.message || 'Booking failed');
             }
         } catch (error) {
-            const errorMsg = error.response?.data?.message || error.message || 'Error booking the slot. Please try again.';
-            alert(errorMsg);
+            alert(error.response?.data?.message || error.message || 'Error booking the slot.');
             console.error('Booking error:', error);
         } finally {
             setLoading(false);
