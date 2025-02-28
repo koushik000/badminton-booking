@@ -1,0 +1,109 @@
+/* Improved Court Booking Slot Styles */
+.slot-container {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    margin-bottom: 20px;
+    padding: 18px;
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.slot-container:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+    transform: translateY(-2px);
+}
+
+.slot-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.slot-time {
+    font-size: 18px;
+    font-weight: bold;
+    color: #222;
+    min-width: 140px;
+}
+
+.courts-label {
+    font-size: 15px;
+    color: #444;
+    font-weight: 600;
+}
+
+.courts-available {
+    display: flex;
+    gap: 8px;
+}
+
+.court-badge {
+    background-color: #e6f2ff;
+    color: #0066cc;
+    border-radius: 14px;
+    padding: 4px 12px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.court-badge:hover {
+    background-color: #cce4ff;
+    cursor: pointer;
+}
+
+.booking-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.book-button {
+    background: #4285f4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 18px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.book-button:hover {
+    background: #3367d6;
+    transform: translateY(-2px);
+}
+
+.book-button:active {
+    transform: translateY(1px);
+}
+
+/* Responsive Design */
+@media (min-width: 768px) {
+    .slot-container {
+        padding: 22px;
+    }
+    .booking-buttons {
+        margin-left: auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .slot-container {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .slot-header {
+        flex: 1;
+    }
+    .booking-buttons {
+        flex: 0 0 auto;
+    }
+}

@@ -1,0 +1,253 @@
+/* styles.css */
+
+/* General styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h1 {
+  color: #4A90E2;
+}
+
+/* Input styles */
+input[type="date"], input[type="email"] {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #4A90E2;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+input[type="date"]:focus, input[type="email"]:focus {
+  border-color: #2C82D3;
+}
+
+/* Button styles */
+button {
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #2C82D3;
+}
+
+/* Slot list styles */
+.slot {
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.slot:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.slot strong {
+  font-size: 1.2em;
+}
+
+/* Booking list styles */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 5px;
+}
+
+p {
+  color: #F44336; /* Error message color */
+}
+
+/* styles.css */
+
+/* Additional styles */
+button {
+  margin: 10px 0; /* Add some spacing to the buttons */
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #2C82D3;
+}
+
+h2 {
+  margin: 20px 0 10px; /* Spacing for headings */
+}
+
+/* styles.css */
+
+/* General styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(to right, #e0eafc, #cfdef3);
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h1 {
+  color: #4A90E2;
+}
+
+/* Input styles */
+input[type="date"], input[type="email"] {
+  width: 80%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #4A90E2;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+input[type="date"]:focus, input[type="email"]:focus {
+  border-color: #2C82D3;
+}
+
+/* Button styles */
+button {
+  margin: 10px 0; /* Add some spacing to the buttons */
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #2C82D3;
+}
+
+/* Logout button style */
+.logout-button {
+  background-color: #d9534f; /* Bootstrap danger color */
+  margin-bottom: 20px; /* Space between logout button and rest */
+}
+
+.logout-button:hover {
+  background-color: #c9302c; /* Darker shade on hover */
+}
+
+/* Slot list styles */
+.slot {
+  padding: 15px;
+  margin: 10px 0;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.slot:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.slot strong {
+  font-size: 1.2em;
+}
+
+/* Booking list styles */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 5px;
+}
+
+p {
+  color: #F44336; /* Error message color */
+}
+.app-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background-color: #4A90E2;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar button {
+  width: 100%;
+  margin: 10px 0;
+  background-color: white;
+  color: #4A90E2;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sidebar button:hover {
+  background-color: #2C82D3;
+  color: white;
+}
+
+.main-content {
+  flex-grow: 1;
+  padding: 20px;
+  text-align: center;
+}
+
